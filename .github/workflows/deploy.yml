@@ -19,38 +19,21 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
-      - name: Create build directory
-        run: |
-          mkdir -p _build
-          
-      - name: Copy HTML files
-        run: |
-          cp *.html _build/ 2>/dev/null || true
-          
-      - name: Copy device folders
-        run: |
-          for dir in */; do
-            if [ "$dir" != ".github/" ] && [ "$dir" != ".git/" ]; then
-              cp -r "$dir" _build/
-            fi
-          done
-          
-      - name: Copy root files
-        run: |
-          cp *.png _build/ 2>/dev/null || true
-          cp *.jpg _build/ 2>/dev/null || true
-          cp *.jpeg _build/ 2>/dev/null || true
-          cp *.css _build/ 2>/dev/null || true
-          cp *.js _build/ 2>/dev/null || true
-          cp README.md _build/ 2>/dev/null || true
-          cp LICENSE _build/ 2>/dev/null || true
-      
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
-          path: _build
-          retention-days: 1
+          path: |
+            *.html
+            devices/
+            profile/
+            rosy/
+            whyred/
+            sagit/
+            laurus/
+            laurel_sprout/
+            README.md
+            LICENSE
 
   deploy:
     needs: build
