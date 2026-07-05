@@ -19,20 +19,11 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
-      - name: Build
-        run: |
-          mkdir -p _site
-          find . -maxdepth 1 -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" -o -name "*.json" \) -exec cp {} _site/ \;
-          cp -r assets _site/ 2>/dev/null || true
-          cp -r images _site/ 2>/dev/null || true
-          cp -r js _site/ 2>/dev/null || true
-          cp -r css _site/ 2>/dev/null || true
-      
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
-          path: ./_site
+          path: .
 
   deploy:
     needs: build
