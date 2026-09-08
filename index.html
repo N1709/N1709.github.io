@@ -71,23 +71,13 @@
       max-width: 320px;
     }
 
-    /* Widget White Watch */
-    .single-clock {
-      display: inline-flex;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 6px 12px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-
+    /* WATCH */
     .clock-time {
-      font-size: 1rem;
+      display: block;
+      font-size: 1.1rem;
       color: #ffffff;
-      font-weight: 600;
-      font-family: 'Courier New', Courier, monospace;
-      letter-spacing: 0.05em;
+      font-weight: 500;
+      margin-bottom: 8px;
     }
 
     .brand-desc {
@@ -182,9 +172,7 @@
       
       <!-- Left Side: WATCH And WORDS-->
       <div class="footer-left">
-        <div class="single-clock">
-          <span class="clock-time" id="live-clock">00:00:00 AM</span>
-        </div>
+        <span class="clock-time" id="live-clock">00:00 AM</span>
 
         <p class="brand-desc">
           Helping and then billing for recognition is still billing, because genuine kindness isn't afraid of being forgotten.
@@ -265,14 +253,11 @@
       const now = new Date();
       let hours = now.getHours();
       const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
       const ampm = hours >= 12 ? 'PM' : 'AM';
-
       hours = hours % 12;
-      hours = hours ? hours : 12;
+      hours = hours ? hours : 12; 
       const formattedHours = String(hours).padStart(2, '0');
-
-      document.getElementById('live-clock').textContent = `${formattedHours}:${minutes}:${seconds} ${ampm}`;
+      document.getElementById('live-clock').textContent = `${formattedHours}:${minutes} ${ampm}`;
     }
 
     updateClock();
