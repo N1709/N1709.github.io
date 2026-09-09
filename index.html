@@ -25,6 +25,7 @@
     .hero {
       position: relative;
       flex: 1;
+      min-height: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -43,17 +44,19 @@
     .hero-desc {
       max-width: 480px;
       font-size: 0.95rem;
+      font-weight: 700;
       line-height: 1.6;
       color: #e2e8f0;
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     }
 
     .site-footer {
+      flex-shrink: 0;
       background: rgba(18, 18, 18, 0.65);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 40px 8% 20px;
+      padding: 5px 8% 14px;
       color: #9ca3af;
     }
 
@@ -62,7 +65,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
     .footer-left {
@@ -126,7 +129,7 @@
 
     .footer-bottom {
       border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 16px;
+      padding-top: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
