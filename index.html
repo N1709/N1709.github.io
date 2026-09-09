@@ -111,6 +111,22 @@
       margin-bottom: 4px;
     }
 
+    .column a {
+      color: #ffffff;
+      text-decoration: none; 
+      display: inline-block; 
+      transition: transform 0.2s ease, opacity 0.2s ease; 
+    }
+
+    .column a:hover {
+      opacity: 0.8;
+      transform: translateY(-3px);
+    }
+
+    .column a:active {
+      transform: translateY(-1px); 
+    }
+
     /* Footer Bottom Line & Social Icons */
     .footer-bottom {
       border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -172,23 +188,40 @@
       
       <!-- Left Side: WATCH And WORDS-->
       <div class="footer-left">
-        <span class="clock-time" id="live-clock">00:00 AM</span>
+        <span style="font-size: 40px;" class="clock-time" id="live-clock">00:00 AM</span>
 
         <p class="brand-desc">
           Helping and then billing for recognition is still billing, because genuine kindness isn't afraid of being forgotten.
         </p>
       </div>
 
-      <!-- Right Side: SKILL, TOOLS And LANGUEAGE -->
+      <!-- Right Side: SKILL, TOOLS And LANGUAGE -->
       <div class="footer-columns">
+        <div class="column">
+          <h4>PROJECTS</h4>
+          <ul>
+            <li><a href="https://aetheriaos.github.io/" target="_blank" rel="noopener">AetheriaOS</a></li>
+          </ul>
+        </div>
+
+        <div class="column">
+          <h4>HOBBY</h4>
+          <ul>
+             <li>AOSP/System Development</li>
+             <li>Kernel Development</li>
+             <li>Game Development</li>
+             <li>Firmware Port</li>
+          </ul>
+        </div>
+
         <div class="column">
           <h4>SKILL</h4>
           <ul>
             <li>Back-End Web Development</li>
-            <li>Android Developer</li>
+            <li>Android System Developer </li>
             <li>Game Developer</li>
             <li>Computer Networking</li>
-            <li>Cross-chipset firmware porting</li>
+            <li>Cross-Chipset Firmware Port</li>
             <li>IT Support</li>
           </ul>
         </div>
@@ -210,6 +243,7 @@
           <h4>LANGUAGE</h4>
           <ul>
             <li>GDScript</li>
+            <li>Python</li>
             <li>HTML</li>
             <li>CSS</li>
             <li>PHP</li>
