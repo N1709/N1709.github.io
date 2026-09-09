@@ -22,16 +22,15 @@
       flex-direction: column;
     }
 
-    /* Container Image Full Screen */
     .hero {
       position: relative;
-      flex: 1; 
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 0 8%;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(18,18,18,0.7)), 
-            url('background/wp.jpg') center/cover no-repeat;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(18,18,18,0.7)),
+            url('wp.jpg') center/cover no-repeat;
     }
 
     .hero-title {
@@ -49,7 +48,6 @@
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     }
 
-    /* Footer at the bottom of the screen */
     .site-footer {
       background: rgba(18, 18, 18, 0.65);
       backdrop-filter: blur(12px);
@@ -71,7 +69,6 @@
       max-width: 320px;
     }
 
-    /* WATCH */
     .clock-time {
       display: block;
       font-size: 1.1rem;
@@ -113,9 +110,9 @@
 
     .column a {
       color: #ffffff;
-      text-decoration: none; 
-      display: inline-block; 
-      transition: transform 0.2s ease, opacity 0.2s ease; 
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s ease, opacity 0.2s ease;
     }
 
     .column a:hover {
@@ -124,10 +121,9 @@
     }
 
     .column a:active {
-      transform: translateY(-1px); 
+      transform: translateY(-1px);
     }
 
-    /* Footer Bottom Line & Social Icons */
     .footer-bottom {
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       padding-top: 16px;
@@ -170,11 +166,88 @@
       stroke: none !important;
       shape-rendering: geometricPrecision;
     }
+
+    @media (max-width: 900px) {
+      html, body {
+        height: auto;
+        overflow: auto;
+      }
+
+      .hero {
+        min-height: 60vh;
+        padding: 0 6%;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-desc {
+        max-width: 100%;
+      }
+
+      .footer-columns {
+        gap: 24px;
+      }
+
+      .column {
+        min-width: 45%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        min-height: 55vh;
+        padding: 0 6% 40px;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+        margin-bottom: 14px;
+      }
+
+      .hero-desc {
+        font-size: 0.9rem;
+      }
+
+      .site-footer {
+        padding: 20px 6% 16px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+      }
+
+      .footer-left {
+        max-width: 100%;
+      }
+
+      .clock-time {
+        font-size: 32px !important;
+      }
+
+      .footer-columns {
+        gap: 20px;
+      }
+
+      .column {
+        min-width: 100%;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .social-links {
+        gap: 20px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Hero Section -->
   <main class="hero">
     <h1 class="hero-title">Hi there!</h1>
     <p class="hero-desc">
@@ -182,11 +255,9 @@
     </p>
   </main>
 
-  <!-- Footer Section -->
   <footer class="site-footer">
     <div class="footer-content">
-      
-      <!-- Left Side: WATCH And WORDS-->
+
       <div class="footer-left">
         <span style="font-size: 40px;" class="clock-time" id="live-clock">00:00 AM</span>
 
@@ -195,7 +266,6 @@
         </p>
       </div>
 
-      <!-- Right Side: SKILL, TOOLS And LANGUAGE -->
       <div class="footer-columns">
         <div class="column">
           <h4>PROJECTS</h4>
@@ -254,27 +324,22 @@
 
     </div>
 
-    <!-- Copyright & Social Icons -->
     <div class="footer-bottom">
       <p class="copyright">&copy; 2025 N1709 all rights reserved.</p>
 
       <div class="social-links">
-        <!-- LinkedIn -->
-        <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener">
+        <a href="https://www.linkedin.com/in/kentaroaldanatien" aria-label="LinkedIn" target="_blank" rel="noopener">
           <svg viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
         </a>
 
-        <!-- GitHub -->
-        <a href="#" aria-label="GitHub" target="_blank" rel="noopener">
+        <a href="https://github.com/N1709" aria-label="GitHub" target="_blank" rel="noopener">
           <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
         </a>
 
-        <!-- Telegram -->
         <a href="https://t.me/NKB0B" aria-label="Telegram" target="_blank" rel="noopener">
           <svg viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM11.97 4.361c-.13-.12-.32-.16-.486-.099L2.83 7.64c-.21.08-.2.38.02.448l2.25.688 1.05 3.25c.08.24.38.3.52.12l1.49-1.8 2.67 1.97c.2.15.48.04.53-.2l1.37-7.14c.04-.21-.07-.43-.26-.525zM6.16 8.78l3.96-2.5-2.92 3.12-.22 1.37-.82-2.5 0 .01z"/></svg>
         </a>
 
-        <!-- Itch.io -->
         <a href="https://n1709.itch.io/" aria-label="Itch.io" target="_blank" rel="noopener">
           <svg viewBox="0 0 16 16"><path d="M2.2475 1.0865625C1.56875 1.4896875 0.23125 3.02625 0.21875 3.4290625v0.666875c0 0.845625 0.7903125 1.58875 1.5078125 1.58875 0.8615625 0 1.579375 -0.7140625 1.579375 -1.5625 0 0.8475 0.693125 1.5625 1.555 1.5625s1.53125 -0.7140625 1.53125 -1.5625c0 0.8475 0.7371875 1.5625 1.59875 1.5625h0.015625c0.8615625 0 1.59875 -0.7140625 1.59875 -1.5625 0 0.8475 0.6709375 1.53125 1.53125 1.5625s1.555 -0.7140625 1.555 -1.5625c0 0.8475 0.71875 1.5625 1.579375 1.5625 0.71875 0 1.5078125 -0.743125 1.5078125 -1.58875v-0.666875c-0.0125 -0.403125 -1.35 -1.9396875 -2.02875 -2.34375C11.6425 1.0125 10.18 1 8 1S2.848125 1.034375 2.2475 1.0865625zm4.135 4.1996875c-0.6875 1.2 -2.434375 1.2096875 -3.1203125 0.0078125 -0.4115625 0.723125 -1.3490625 1.0021875 -1.75 0.864375 -0.1209375 1.2546875 -0.4271875 7.4103125 0.5540625 8.4109375 2.5 0.5834375 9.44 0.56625 11.8675 0 0.9890625 -1.0084375 0.66625 -7.25 0.5546875 -8.4109375 -0.40375 0.13875 -1.34 -0.14375 -1.75 -0.864375 -0.6875 1.20375 -2.4328125 1.190625 -3.1203125 -0.0075 -0.221875 0.3903125 -0.7203125 0.904375 -1.6175 0.904375a1.798125 1.798125 0 0 1 -1.6171875 -0.904375zm-1.299375 1.6803125c0.5146875 0 0.9715625 0 1.538125 0.618125a13.6534375 13.6534375 0 0 1 2.755625 0C9.944375 6.96875 10.4015625 6.96875 10.9159375 6.96875c1.6353125 0 2.038125 2.4228125 2.6209375 4.5140625 0.539375 1.9421875 -0.1725 1.9896875 -1.0609375 1.9915625 -1.3171875 -0.0490625 -2.0465625 -1.005625 -2.0465625 -1.9621875 -1.2265625 0.2009375 -3.1853125 0.2746875 -4.8609375 0 0 0.9565625 -0.729375 1.913125 -2.0465625 1.9621875 -0.888125 -0.001875 -1.6 -0.049375 -1.060625 -1.9915625 0.5834375 -2.09375 0.98625 -4.5140625 2.62125 -4.5140625zM8 8.4621875s-1.386875 1.2740625 -1.6359375 1.7253125l0.90625 -0.0365625v0.79125c0 0.0484375 0.666875 0.005 0.7290625 0.005 0.3640625 0.016875 0.7284375 0.03125 0.7284375 -0.005v-0.79l0.90625 0.0365625c-0.25 -0.4525 -1.6359375 -1.72625 -1.6359375 -1.72625z"/></svg>
         </a>
@@ -289,7 +354,7 @@
       const minutes = String(now.getMinutes()).padStart(2, '0');
       const ampm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12;
-      hours = hours ? hours : 12; 
+      hours = hours ? hours : 12;
       const formattedHours = String(hours).padStart(2, '0');
       document.getElementById('live-clock').textContent = `${formattedHours}:${minutes} ${ampm}`;
     }
