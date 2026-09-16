@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>N1709 — Portfolio</title>
+  <title>N2709 — Portfolio</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,7 +127,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding-top: 73px;
+      padding-top: 0;
     }
 
     .bg-big-text {
@@ -154,34 +154,44 @@
       text-transform: uppercase;
     }
 
-    .hero-clock-text {
+    .hero-clock-container {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) translateY(20px); 
+      transform: translate(-50%, -50%);
       width: 100%;
-      height: 100%;
       display: flex;
-      align-items: center;
       justify-content: center;
-      text-align: center;
+      align-items: center;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-clock-text {
       font-family: var(--font-clock);
-      font-size: 55vw; 
+      font-size: 50vw; 
       line-height: 1;
-      letter-spacing: -0.04em;
+      letter-spacing: 0.05em;
       color: transparent;
       -webkit-text-stroke: 2px rgba(17, 24, 39, 0.055);
       user-select: none;
-      pointer-events: none;
-      z-index: 0;
       white-space: nowrap;
       text-transform: uppercase;
       font-variant-numeric: tabular-nums;
+      text-align: center;
+      transform: translateY(0px);
+    }
+
+    .typewriter-wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
     }
 
     .typewriter-text {
-      position: relative;
-      z-index: 1;
       font-family: var(--font-jp);
       font-size: clamp(3rem, 13vw, 13vw);
       font-weight: 900;
@@ -192,6 +202,7 @@
       animation: blink 0.75s step-end infinite;
       line-height: 1;
       letter-spacing: -0.03em;
+      text-align: center;
     }
 
     @keyframes blink {
@@ -485,8 +496,12 @@
   </header>
 
   <section class="slide slide-hero" id="slide-1">
-    <div class="hero-clock-text" id="heroClock" aria-hidden="true"></div>
-    <h1 class="typewriter-text" id="text"></h1>
+    <div class="hero-clock-container">
+      <div class="hero-clock-text" id="heroClock" aria-hidden="true"></div>
+    </div>
+    <div class="typewriter-wrapper">
+      <h1 class="typewriter-text" id="text"></h1>
+    </div>
   </section>
 
   <a href="#slide-2" class="scroll-down" id="scrollDown" aria-label="Scroll down">
