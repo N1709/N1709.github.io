@@ -214,15 +214,16 @@
 
     .scroll-down {
       position: fixed;
-      bottom: 28px;
+      bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      gap: 6px;
+      width: auto;
+      height: auto;
       color: var(--text-muted);
       text-decoration: none;
       z-index: 50;
@@ -234,6 +235,14 @@
     .scroll-down.hidden {
       opacity: 0;
       visibility: hidden;
+    }
+
+    .scroll-down-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
 
     .arrow {
@@ -509,6 +518,7 @@
   </section>
 
   <a href="#slide-2" class="scroll-down" id="scrollDown" aria-label="Scroll down">
+    <span class="scroll-down-label">Swipe</span>
     <div class="arrow"></div>
   </a>
 
@@ -589,43 +599,6 @@
     </div>
   </section>
 
-<!-- <section class="slide slide-work" id="slide-3">
-    <div class="bg-big-text" aria-hidden="true">PROJECTS</div>
-    <div class="container reveal">
-      <span class="section-label">02 / Overview</span>
-      <h2 class="section-title">Projects & Skills</h2>
-      <p class="prose">
-        <strong>Projects & Overview:</strong> A developer bridging low-level engineering and application development, specializing in custom AOSP architecture, cross-chipset firmware porting, interactive game loops, and robust web back-end systems.
-      </p>
-
-      <div class="divider"></div>
-
-      <div style="margin-bottom: 22px;">
-        <span class="sub-label">Featured Projects</span>
-        <div class="project-links-list">
-          <a href="https://aetheriaos.github.io/" target="_blank" rel="noopener" class="project-link-item">
-            AetheriaOS <svg class="link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> <span>Custom Open-Source Android ROM Project</span>
-          </a>
-          <a href="https://github.com/N1709/mainline_kernel_xiaomi_whyred" target="_blank" rel="noopener" class="project-link-item">
-            Mainline Kernel For Whyred <svg class="link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> <span>AOSP / Linux Kernel for Snapdragon 636</span>
-          </a>
-          <a href="https://github.com/N1709/Sangue_e_Polvora-demo" target="_blank" rel="noopener" class="project-link-item">
-            Blood And Gunpowder <svg class="link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> <span>Real-time Game Demo Prototype in Godot Engine</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div>
-        <span class="sub-label">Core Skills</span>
-        <p class="skills-simple-text">
-          Android System Development &bull; Game Development &bull; Cross-Chipset Firmware Porting &bull; IT Support &bull; Computer Networking &bull; Web Back-End Development
-        </p>
-      </div>
-    </div>
-  </section> -->
-
   <script>
     const el = document.getElementById('text');
     const firstText = "やあ！";
@@ -673,9 +646,9 @@
       const clockEl = document.getElementById('heroClock');
       if (!clockEl) return;
       const now = new Date();
+      const h = String(now.getUTCHours()).padStart(2, '0');
       const m = String(now.getUTCMinutes()).padStart(2, '0');
-      const s = String(now.getUTCSeconds()).padStart(2, '0');
-      clockEl.textContent = `${m}:${s}`;
+      clockEl.textContent = `${h}:${m}`;
     }
     setInterval(updateClock, 1000);
     updateClock();
