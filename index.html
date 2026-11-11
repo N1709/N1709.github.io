@@ -765,11 +765,15 @@ const smooth=!reduce&&window.matchMedia('(pointer: fine)').matches;
 const maxScroll=()=>Math.max(0,root.scrollHeight-window.innerHeight);
 let cur=window.scrollY,tgt=cur,lastY=window.scrollY,homeScroll=0,busy=false,currentSlug=null;
 
+const SCROLL_STEP=.7;
+const SCROLL_EASE=.085;
+const SCROLL_CAP=120;
+
 if(smooth){window.addEventListener('wheel',e=>{
 if(e.ctrlKey||e.defaultPrevented||busy)return;
 e.preventDefault();
 const dy=e.deltaMode===1?e.deltaY*32:e.deltaMode===2?e.deltaY*window.innerHeight:e.deltaY;
-tgt=clamp(tgt+dy*1.4,0,maxScroll())},{passive:false})}
+tgt=clamp(tgt+clamp(dy,-SCROLL_CAP,SCROLL_CAP)*SCROLL_STEP,0,maxScroll())},{passive:false})}
 
 function syncScroll(){cur=tgt=window.scrollY;lastY=window.scrollY}
 function swapTo(slug){
@@ -899,7 +903,7 @@ const fdt=prevFrame?now-prevFrame:16;prevFrame=now;fcount++;
 if(smooth&&!busy){
 const actual=window.scrollY;
 if(Math.abs(actual-cur)>2){cur=tgt=actual}
-else{cur+=(tgt-cur)*.075;if(Math.abs(tgt-cur)<.3)cur=tgt;if(cur!==actual)window.scrollTo(0,cur)}}
+else{const k=1-Math.pow(1-SCROLL_EASE,Math.min(fdt,50)/16.67);cur+=(tgt-cur)*k;if(Math.abs(tgt-cur)<.3)cur=tgt;if(cur!==actual)window.scrollTo(0,cur)}}
 const y=window.scrollY,d=y-lastY;lastY=y;
 v+=(d-v)*.1;
 const vc=clamp(v,-100,100)*FX,av=Math.abs(vc);
