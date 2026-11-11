@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#FF3D00">
 <script>(function(){var c=['#FF3D00','#A6FF00','#0E0E0E','#F4F4F0','#7A0F0F','#E9FF3F','#FFD400','#0E6B4F'],i=Math.floor(Math.random()*c.length);try{var l=parseInt(localStorage.getItem('ti'));if(l===i)i=(i+1+Math.floor(Math.random()*(c.length-1)))%c.length;localStorage.setItem('ti',i)}catch(e){}window.__ti=i;document.documentElement.style.setProperty('--bg',c[i])})()</script>
-<title>N1709 - Portfolio</title>
+<title>N1709</title>
 <link rel="icon" id="favicon" href="data:,">
 <meta name="description" content="Kentaro — student and solo developer specializing in AOSP development and game development.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -187,8 +187,9 @@ const FAVICON_LETTER='K';
 const root=document.documentElement;
 const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COARSE=window.matchMedia('(pointer: coarse)').matches;
-const FX=COARSE?.8:1;
-const glMin=COARSE?.55:.8;
+const LITE=new URLSearchParams(location.search).get('fx')==='lite';
+const FX=LITE?.8:1;
+const glMin=LITE?.55:.8;
 let warpEls=null,fcount=0,clipTick=0,farDrawn=false,themeLastPaint=0,smallStale=false,glKey='',buildId=0,holdH=0,ringG={w:.68,y:.59};
 const homeSec=document.getElementById('home');
 const NS='http://www.w3.org/2000/svg';
@@ -282,10 +283,10 @@ let f=talkSt.f[i];f+=(tgt-f)*.14;if(f<.003&&tgt===0)f=0;talkSt.f[i]=f;
 if(f===0){if(l.style.transform){l.style.transform='';l.style.textShadow=''}return}
 const tx=Math.max(-1,Math.min(1,dx/sg)),ty=Math.max(-1,Math.min(1,dy/sg));
 l.style.transform=`perspective(700px) translate3d(0,${(-f*sg*.2).toFixed(1)}px,${(f*60).toFixed(1)}px) scale(${(1+f*.28).toFixed(3)}) rotateX(${(ty*f*12).toFixed(2)}deg) rotateY(${(-tx*f*14).toFixed(2)}deg)`;
-let sh='';const ex=COARSE?0:Math.round(f*5);
+let sh='';const ex=LITE?0:Math.round(f*5);
 for(let k=1;k<=ex;k++)sh+=`${(-tx*k*1.2).toFixed(1)}px ${(k*1.4).toFixed(1)}px 0 var(--dark),`;
 sh+=`${(-tx*f*10).toFixed(1)}px ${(f*22).toFixed(1)}px ${(f*8).toFixed(1)}px rgba(0,0,0,${(.3*f).toFixed(2)})`;
-l.style.textShadow=COARSE?'':sh;anyF=true});talkSt.any=anyF}
+l.style.textShadow=LITE?'':sh;anyF=true});talkSt.any=anyF}
 
 const rowFx=new Map();
 const rowFxIO=new IntersectionObserver(es=>{es.forEach(e=>{const s=rowFx.get(e.target);if(!s)return;s.vis=e.isIntersecting;if(!s.vis)rowFxReset(s)})},{rootMargin:'100px'});
@@ -326,7 +327,7 @@ if(f===0){if(l.style.transform){l.style.transform='';l.style.textShadow=''}retur
 any=true;
 const tx=Math.max(-1,Math.min(1,dx/sg));
 l.style.transform=`translate(0,${(-f*oh*.1).toFixed(1)}px) scale(${(1+f*.12).toFixed(3)}) skewX(${(tx*f*-6).toFixed(2)}deg)`;
-if(COARSE)return;
+if(LITE)return;
 let sh='';const ex=Math.round(f*3);
 for(let q=1;q<=ex;q++)sh+=`${(-tx*q*.9).toFixed(1)}px ${(q*1.2).toFixed(1)}px 0 ${sc},`;
 sh+=`${(-tx*f*6).toFixed(1)}px ${(f*14).toFixed(1)}px ${(f*6).toFixed(1)}px rgba(0,0,0,${(.3*f).toFixed(2)})`;
@@ -444,7 +445,7 @@ void main(){
 }`;
 
 let texC=null,maskRatio=1,ringK=0;
-let gl=null,uni={},texs=[],glReady=false,maskW=2,maskH=2,glScale=COARSE?.8:1,frameEma=16,lastScaleChange=0,lastRender=0;
+let gl=null,uni={},texs=[],glReady=false,maskW=2,maskH=2,glScale=LITE?.8:1,frameEma=16,lastScaleChange=0,lastRender=0;
 function compile(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s}
 function initGL(){
 try{
@@ -525,7 +526,7 @@ async function buildGL(){
 const rect=hero.getBoundingClientRect();
 if(rect.width<10||rect.height<10)return;
 const maxTex=Math.min(4096,gl.getParameter(gl.MAX_TEXTURE_SIZE)||2048);
-const r0=Math.min(Math.min(window.devicePixelRatio||1,COARSE?1.6:2.5),maxTex/rect.width,maxTex/(rect.height*1.5));
+const r0=Math.min(Math.min(window.devicePixelRatio||1,LITE?1.6:2.5),maxTex/rect.width,maxTex/(rect.height*1.5));
 const key=Math.round(rect.width)+'x'+Math.round(rect.height)+'x'+r0.toFixed(3);
 if(glReady&&texs.length&&key===glKey)return;
 const id=++buildId;
@@ -588,7 +589,7 @@ const sp=Math.hypot(vx*(window.innerWidth/window.innerHeight),vy);
 const target=state.tx>=0?clamp(sp*45,0,1)*FX:0;
 state.act+=(target-state.act)*(target>state.act?.35:.05);
 if(state.act<.003&&target===0)state.act=0;
-if(busy&&fdt<100){frameEma=frameEma*.92+fdt*.08;if(frameEma>(COARSE?20:24)&&glScale>glMin&&now-lastScaleChange>(COARSE?900:1500)){glScale=Math.max(glMin,glScale*.9);lastScaleChange=now;frameEma=16;sizeCanvas()}}
+if(busy&&fdt<100){frameEma=frameEma*.92+fdt*.08;if(frameEma>(LITE?20:24)&&glScale>glMin&&now-lastScaleChange>(LITE?900:1500)){glScale=Math.max(glMin,glScale*.9);lastScaleChange=now;frameEma=16;sizeCanvas()}}
 state.rot+=dt*.28;
 const p=y/window.innerHeight;
 const ringW=ringG.w;
@@ -604,7 +605,7 @@ gl.uniform2f(uni.u_mvel,state.mvx,state.mvy);
 gl.uniform1f(uni.u_mact,state.act);
 gl.uniform1f(uni.u_scroll,sc);
 gl.uniform1f(uni.u_k,state.k);
-gl.uniform1f(uni.u_intro,state.intro);gl.uniform1f(uni.u_lite,COARSE?1:0);
+gl.uniform1f(uni.u_intro,state.intro);gl.uniform1f(uni.u_lite,LITE?1:0);
 gl.uniform4f(uni.u_ring,ringW,ryv,1+p*.42,state.rot+p*.7-.52);
 gl.uniform1f(uni.u_ringOff,rov);
 if(themeRGB){gl.uniform3fv(uni.u_bg,themeRGB.bg);gl.uniform3fv(uni.u_fg,themeRGB.fg);gl.uniform3fv(uni.u_dk,themeRGB.dk)}
@@ -629,7 +630,7 @@ ox+=g*.012*Math.sin(uy*60+t*25);
 return [ox,oy]}
 function syncRingClip(ry,ringW,z,ang,off,P){
 if(!leadOv.length||!ringPath)return;
-if(COARSE&&(clipTick^=1))return;
+if(LITE&&(clipTick^=1))return;
 const o=leadOv[0],r=o.getBoundingClientRect(),hrc=hero.getBoundingClientRect(),cr={left:hrc.left,top:hrc.top,width:hrc.width,height:hrc.height*1.5};
 if(cr.width<10||r.width<1||r.height<1||r.bottom<0||r.top>window.innerHeight){ringPath.setAttribute('d','');return}
 const kx=o.offsetWidth/r.width,ky=o.offsetHeight/r.height;
@@ -638,11 +639,11 @@ const ro=R*.415,ho=R*.041,ri=R*.19,hi=R*.038;
 const pt=(rad,a)=>{
 const wx=(cxp+Math.cos(a)*rad)/W,wy=(cyp+Math.sin(a)*rad)/H;
 let sx=wx,sy=wy;
-for(let i=0;i<(COARSE?2:4);i++){const q=warpOff(sx,sy,P);sx=wx-q[0];sy=wy-q[1]}
+for(let i=0;i<(LITE?2:4);i++){const q=warpOff(sx,sy,P);sx=wx-q[0];sy=wy-q[1]}
 return [((cr.left+sx*cr.width-r.left)*kx).toFixed(1),((cr.top+sy*cr.height-r.top)*ky).toFixed(1)]};
 const loop=(rad,n)=>{let d='';for(let i=0;i<n;i++){const q=pt(rad,i/n*6.2831853);d+=(i?'L':'M')+q[0]+' '+q[1]}return d+'Z'};
-const a0=-ang,span=.68*6.2831853,m=COARSE?32:56,rO=ri+hi,rI=ri-hi;
-const nl=COARSE?72:120;
+const a0=-ang,span=.68*6.2831853,m=LITE?32:56,rO=ri+hi,rI=ri-hi;
+const nl=LITE?72:120;
 let d=loop(ro+ho,nl)+loop(ro-ho,nl);
 for(let i=0;i<=m;i++){const q=pt(rO,a0+span*i/m);d+=(i?'L':'M')+q[0]+' '+q[1]}
 for(let i=m;i>=0;i--){const q=pt(rI,a0+span*i/m);d+='L'+q[0]+' '+q[1]}
@@ -672,13 +673,13 @@ if(themeMeta)themeMeta.setAttribute('content',rgb(themeCur.bg))}
 function themeStep(now){
 if(reduce)return;
 if(!themeNext)themeNext=now+4000+Math.random()*4000;
-if(!themeFrom&&now>=themeNext&&!(COARSE&&Math.abs(v)>1)){
+if(!themeFrom&&now>=themeNext&&!(LITE&&Math.abs(v)>1)){
 let nx=themeIdx;while(nx===themeIdx)nx=Math.floor(Math.random()*THEMES.length);themeIdx=nx;
 themeFrom={};THEME_KEYS.forEach(k=>{themeFrom[k]=themeCur[k].slice()});
 themeT0=now;themeNext=now+5000+Math.random()*5000}
 if(themeFrom){
 const t=clamp((now-themeT0)/1500,0,1),e=ease(t),to=themePal[themeIdx];
-if(COARSE&&t<1&&now-themeLastPaint<64)return;
+if(LITE&&t<1&&now-themeLastPaint<64)return;
 themeLastPaint=now;
 THEME_KEYS.forEach(k=>{for(let i=0;i<3;i++)themeCur[k][i]=themeFrom[k][i]+(to[k][i]-themeFrom[k][i])*e});
 paintTheme();
@@ -804,7 +805,7 @@ window.addEventListener('pointerdown',e=>{mouse.x=e.clientX;mouse.y=e.clientY;mo
 const fallbackLetters=Array.from(nameEl.querySelectorAll('.ch'));
 let v=0,dirty=false,prevFrame=0;
 
-const WARP_SEL=COARSE?'.row-inner,.about,.label,.foot-links':'.row-inner,.about,.label,.foot-links,.wline';
+const WARP_SEL=LITE?'.row-inner,.about,.label,.foot-links':'.row-inner,.about,.label,.foot-links,.wline';
 function warpAll(av,vc,bw){
 const vh=window.innerHeight,vw=window.innerWidth,s=Math.min(av/60,1),sk=clamp(-vc*.06,-3,3);
 const bx=bw;
@@ -817,7 +818,7 @@ const u=((r.top+r.bottom)/2-vh/2)/(vh/2),q=u/1.4,f=Math.sqrt(Math.max(0,1-q*q));
 const sx=1-(2*bx*f)/vw*1.05,sy=1-s*.14*f;
 el.style.transform=el.classList.contains('about')?`scale(${sx.toFixed(4)},${sy.toFixed(4)})`:`scale(${sx.toFixed(4)},${sy.toFixed(4)}) skewX(${(sk*f).toFixed(2)}deg)`})}
 function applyFx(vc,av,now){
-const sk=clamp(-vc*.65,-40,40),ca0=COARSE?0:Math.min(av*.3,16);
+const sk=clamp(-vc*.65,-40,40),ca0=LITE?0:Math.min(av*.3,16);
 visFx.forEach(el=>{
 let tx=0,ty=0,sc=0,cs=0;
 if(el.dataset.cur&&mouse.act>.01){
@@ -827,12 +828,12 @@ if(el.dataset.ph)tx+=Math.sin(now/280+parseFloat(el.dataset.ph))*av*.5;
 const c=(el.dataset.plain?0:ca0)+cs;
 el.style.transform=`translate(${tx.toFixed(1)}px,${ty.toFixed(1)}px) skewX(${(sk+sc).toFixed(2)}deg) scaleY(${(parseFloat(el.dataset.sy||1.25)*(1+av*.005)).toFixed(3)})`;
 el.style.textShadow=c>.2?`${c.toFixed(1)}px 0 rgba(255,238,64,.85), -${c.toFixed(1)}px 0 rgba(255,70,190,.75)`:''});
-const bmax=window.innerWidth*.12,bw=Math.min(av*2.4,window.innerWidth*(COARSE?.05:.1));
+const bmax=window.innerWidth*.12,bw=Math.min(av*2.4,window.innerWidth*(LITE?.05:.1));
 warpAll(av,vc,bw);
 if(bw>.5){const bs=`scaleX(${(bw/bmax).toFixed(4)})`;bulgeL.style.display='block';bulgeR.style.display='block';bulgeL.style.transform=bs;bulgeR.style.transform=bs}
 else{bulgeL.style.display='none';bulgeR.style.display='none'}
 lines.forEach(ln=>{
-if(!ln.vis||(COARSE&&(fcount&1)))return;
+if(!ln.vis||(LITE&&(fcount&1)))return;
 const b=vc*.55*Math.sin(now/320+ln.phase);
 ln.p.setAttribute('d',`M0 5 C250 ${(5+b).toFixed(2)} 650 ${(5-b).toFixed(2)} 1000 5`)});
 if(!glUseful){fallbackLetters.forEach((l,i)=>{
