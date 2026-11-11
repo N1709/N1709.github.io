@@ -69,7 +69,7 @@ body.on-work .bulge{background:var(--wfg)}
 .title .tc{display:inline-block;pointer-events:none}
 .client{position:absolute;right:0;bottom:calc(var(--rowh)*.16);font-size:11px;line-height:1}
 .work:hover .thumb{width:28vw;margin-right:4vw;padding:10px 12px}
-.about{padding:clamp(36px,5vw,72px) 0}
+.about{position:relative;padding:clamp(36px,5vw,72px) 0}
 .lead{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(2.4rem,6.4vw,9rem);line-height:1;letter-spacing:-.01em;max-width:24ch}
 .lead{position:relative}
 .lead em{font-style:normal;color:var(--em)}
@@ -728,7 +728,7 @@ const lineIO=new IntersectionObserver(es=>{es.forEach(e=>{const ln=lines.find(l=
 function decorate(scope){
 scope.querySelectorAll('.rows').forEach(rows=>{
 const t=makeLine('top');rows.prepend(t);lineIO.observe(t);
-rows.querySelectorAll(':scope > .row').forEach(row=>{const b=makeLine('bottom');row.appendChild(b);lineIO.observe(b)})})}
+rows.querySelectorAll(':scope > .row').forEach(row=>{const b=makeLine('bottom');(row.querySelector(':scope > .row-inner, :scope > .about')||row).appendChild(b);lineIO.observe(b)})})}
 const revealIO=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealIO.unobserve(e.target)}})},{threshold:.12});
 const visFx=new Set();
 function clearFx(el){el.style.transform='';el.style.textShadow=''}
@@ -765,9 +765,9 @@ const smooth=!reduce&&window.matchMedia('(pointer: fine)').matches;
 const maxScroll=()=>Math.max(0,root.scrollHeight-window.innerHeight);
 let cur=window.scrollY,tgt=cur,lastY=window.scrollY,homeScroll=0,busy=false,currentSlug=null;
 
-const SCROLL_STEP=.7;
-const SCROLL_EASE=.085;
-const SCROLL_CAP=120;
+const SCROLL_STEP=.5;
+const SCROLL_EASE=.35;
+const SCROLL_CAP=350;
 
 if(smooth){window.addEventListener('wheel',e=>{
 if(e.ctrlKey||e.defaultPrevented||busy)return;
@@ -844,18 +844,22 @@ window.addEventListener('pointerdown',e=>{mouse.x=e.clientX;mouse.y=e.clientY;mo
 const fallbackLetters=Array.from(nameEl.querySelectorAll('.ch'));
 let v=0,dirty=false,prevFrame=0;
 
-const WARP_SEL=LITE?'.row-inner,.about,.label,.foot-links':'.row-inner,.about,.label,.foot-links,.wline';
+const WARP_SEL=LITE?'.row-inner,.about,.label,.foot-links':'.row-inner,.about,.label,.foot-links,.wline.top';
 function warpAll(av,vc,bw){
-const vh=window.innerHeight,vw=window.innerWidth,s=Math.min(av/60,1),sk=clamp(-vc*.06,-3,3);
-const bx=bw;
+const vh=window.innerHeight,vw=window.innerWidth,s=Math.min(av/40,1),sk=clamp(-vc*.1,-6,6);
 const els=warpEls||(warpEls=Array.from((onWork()?workEl:homeSec).querySelectorAll(WARP_SEL))),rs=[];
 els.forEach(el=>{rs.push(el.getBoundingClientRect())});
 els.forEach((el,i)=>{
-const r=rs[i];
-if(r.bottom<-80||r.top>vh+80){if(el.style.transform)el.style.transform='';return}
-const u=((r.top+r.bottom)/2-vh/2)/(vh/2),q=u/1.4,f=Math.sqrt(Math.max(0,1-q*q));
-const sx=1-(2*bx*f)/vw*1.05,sy=1-s*.14*f;
-el.style.transform=el.classList.contains('about')?`scale(${sx.toFixed(4)},${sy.toFixed(4)})`:`scale(${sx.toFixed(4)},${sy.toFixed(4)}) skewX(${(sk*f).toFixed(2)}deg)`})}
+const r=rs[i],py=el._ty||0,cy=(r.top+r.bottom)/2-py;
+if(cy<-120||cy>vh+120){if(el.style.transform)el.style.transform='';el._ty=0;return}
+const u=(cy-vh/2)/(vh/2),au=Math.min(Math.abs(u),1.4),qq=u/1.4,f=Math.sqrt(Math.max(0,1-qq*qq));
+const about=el.classList.contains('about'),g=about?.5:1;
+const kk=.22*s*g*au,ty=(cy-vh/2)*kk;
+const sx=1-(2*bw*f)/vw*1.05+s*.14*Math.max(0,au-.35)*(1-f);
+const sy=1-s*.14*f+2*kk;
+el._q=Math.max(-1.4,Math.min(1.4,u));el._ty=ty;
+const base=`translate3d(0,${ty.toFixed(1)}px,0) scale(${sx.toFixed(4)},${sy.toFixed(4)})`;
+el.style.transform=about?base:`${base} skewX(${(sk*(.4+.6*f)).toFixed(2)}deg)`})}
 function applyFx(vc,av,now){
 const sk=clamp(-vc*.65,-40,40),ca0=LITE?0:Math.min(av*.3,16);
 visFx.forEach(el=>{
@@ -867,19 +871,19 @@ if(el.dataset.ph)tx+=Math.sin(now/280+parseFloat(el.dataset.ph))*av*.5;
 const c=(el.dataset.plain?0:ca0)+cs;
 el.style.transform=`translate(${tx.toFixed(1)}px,${ty.toFixed(1)}px) skewX(${(sk+sc).toFixed(2)}deg) scaleY(${(parseFloat(el.dataset.sy||1.25)*(1+av*.005)).toFixed(3)})`;
 el.style.textShadow=c>.2?`${c.toFixed(1)}px 0 rgba(255,238,64,.85), -${c.toFixed(1)}px 0 rgba(255,70,190,.75)`:''});
-const bmax=window.innerWidth*.12,bw=Math.min(av*2.4,window.innerWidth*(LITE?.05:.1));
+const bmax=window.innerWidth*.12,bw=Math.min(av*3,window.innerWidth*(LITE?.05:.1));
 warpAll(av,vc,bw);
 if(bw>.5){const bs=`scaleX(${(bw/bmax).toFixed(4)})`;bulgeL.style.display='block';bulgeR.style.display='block';bulgeL.style.transform=bs;bulgeR.style.transform=bs}
 else{bulgeL.style.display='none';bulgeR.style.display='none'}
 lines.forEach(ln=>{
 if(!ln.vis||(LITE&&(fcount&1)))return;
-const b=vc*.55*Math.sin(now/320+ln.phase);
-ln.p.setAttribute('d',`M0 5 C250 ${(5+b).toFixed(2)} 650 ${(5-b).toFixed(2)} 1000 5`)});
+const host=ln.svg.classList.contains('top')?ln.svg:ln.svg.parentElement;const q=(host&&host._q)||0,sv=Math.min(av/40,1);const bow=Math.sign(q)*Math.min(Math.abs(q),1)*sv*22;const b=vc*.55*Math.sin(now/320+ln.phase);
+ln.p.setAttribute('d',`M0 5 C250 ${(5+b+bow).toFixed(2)} 650 ${(5-b+bow).toFixed(2)} 1000 5`)});
 if(!glUseful){fallbackLetters.forEach((l,i)=>{
 const dy=vc*.18*Math.sin(now/260+i*.9),s=-vc*.45*Math.sin(i*1.7+1);
 l.style.transform=`translate3d(0,${dy.toFixed(2)}px,0) skewX(${s.toFixed(2)}deg)`})}}
 function resetFx(){
-document.querySelectorAll(WARP_SEL).forEach(e=>{e.style.transform=''});
+document.querySelectorAll(WARP_SEL).forEach(e=>{e.style.transform='';e._ty=0});
 visFx.forEach(clearFx);
 bulgeL.style.display='none';bulgeR.style.display='none';bulgeL.style.transform='scaleX(0)';bulgeR.style.transform='scaleX(0)';
 lines.forEach(ln=>ln.p.setAttribute('d','M0 5 L1000 5'));
