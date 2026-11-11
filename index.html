@@ -190,25 +190,10 @@ const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COARSE=window.matchMedia('(pointer: coarse)').matches;
 const TIER=(function(){
 const q=new URLSearchParams(location.search).get('fx');
-if(q==='lite')return 0;if(q==='mid')return 1;if(q==='high')return 2;
-const cores=navigator.hardwareConcurrency||4,dm=navigator.deviceMemory,mem=dm||4;
-const conn=navigator.connection;
-if(conn&&conn.saveData)return 0;
-let gpu='';
-try{const c=document.createElement('canvas'),g=c.getContext('webgl')||c.getContext('experimental-webgl');
-if(g){const e=g.getExtension('WEBGL_debug_renderer_info');if(e)gpu=String(g.getParameter(e.UNMASKED_RENDERER_WEBGL)||'');
-const l=g.getExtension('WEBGL_lose_context');if(l)l.loseContext()}else return 0}catch(e){}
-if(/swiftshader|llvmpipe|softpipe|software|basic render|microsoft basic/i.test(gpu))return 0;
-if(/mali-4|mali-t|mali-g[0-5]\d?\b|adreno[^0-9]*[2-5]\d\d\b|powervr|videocore|vivante|sgx/i.test(gpu))return 0;
-if(cores<=2||mem<=2)return 0;
-let t=2;
-if(COARSE){t=(cores>=6&&(dm===undefined||mem>=6))?2:1}
-if(cores<=4||mem<=4)t=Math.min(t,1);
-if(/intel/i.test(gpu)&&!/arc|iris xe/i.test(gpu))t=Math.min(t,1);
-return t})();
+if(q==='lite')return 0;if(q==='mid')return 1;return 2})();
 const LITE=TIER===0;
 const FX=LITE?.8:1;
-const glMin=[.55,.6,.7][TIER];
+const glMin=[.55,.6,1][TIER];
 let rescale=false,maskFloor=[1,1,2][TIER],maskCap=[1.6,1.75,2.5][TIER],dS=0,dN=0,rowShift=0,lastND=0,ND=[],pN=Math.random()<.5?0:1,pS=pN,fromN=0,fromS=0,posTo=0,posT0=0,posAnim=false,posNext=0,posKick=0,talkS=1,warpEls=null,fcount=0,clipTick=0,farDrawn=false,themeLastPaint=0,smallStale=false,glKey='',buildId=0,holdH=0,ringG={w:.68,y:.59};
 const homeSec=document.getElementById('home');
 const NS='http://www.w3.org/2000/svg';
@@ -634,7 +619,7 @@ const sp=Math.hypot(vx*(window.innerWidth/window.innerHeight),vy);
 const target=state.tx>=0?clamp(sp*45,0,1)*FX:0;
 state.act+=(target-state.act)*(target>state.act?.35:.05);
 if(state.act<.003&&target===0)state.act=0;
-if(busy&&fdt<100){frameEma=frameEma*.92+fdt*.08;if(frameEma>(LITE?20:24)){if(glScale>glMin){if(now-lastScaleChange>(LITE?900:1500)){glScale=Math.max(glMin,glScale*.9);lastScaleChange=now;frameEma=16;sizeCanvas()}}else if(maskCap>1.05&&now-lastScaleChange>2500){maskCap=Math.max(1,maskCap*.8);maskFloor=Math.min(maskFloor,maskCap);rescale=true;lastScaleChange=now;frameEma=16;buildGL()}}}
+if(busy&&fdt<100){frameEma=frameEma*.92+fdt*.08;if(frameEma>(LITE?20:24)){if(glScale>glMin){if(now-lastScaleChange>(LITE?900:1500)){glScale=Math.max(glMin,glScale*.9);lastScaleChange=now;frameEma=16;sizeCanvas()}}else if(TIER<2&&maskCap>1.05&&now-lastScaleChange>2500){maskCap=Math.max(1,maskCap*.8);maskFloor=Math.min(maskFloor,maskCap);rescale=true;lastScaleChange=now;frameEma=16;buildGL()}}}
 state.rot+=dt*.28;
 const p=y/window.innerHeight;
 const ringW=ringG.w;
