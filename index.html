@@ -7,7 +7,7 @@
 <script>(function(){var c=['#FF3D00','#A6FF00','#0E0E0E','#F4F4F0','#7A0F0F','#E9FF3F','#FFD400','#0E6B4F'],i=Math.floor(Math.random()*c.length);try{var l=parseInt(localStorage.getItem('ti'));if(l===i)i=(i+1+Math.floor(Math.random()*(c.length-1)))%c.length;localStorage.setItem('ti',i)}catch(e){}window.__ti=i;document.documentElement.style.setProperty('--bg',c[i])})()</script>
 <title>N1709</title>
 <link rel="icon" id="favicon" href="data:,">
-<meta name="description" content="Kentaro — student and solo developer specializing in AOSP development and game development.">
+<meta name="description" content="Kentaro, a student and solo developer working on low-level systems and game programming.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500&family=Noto+Sans+JP:wght@900&display=swap" rel="stylesheet">
@@ -145,7 +145,7 @@ body.on-work .bulge{background:var(--wfg)}
 <div class="ring" id="ring" aria-hidden="true"><svg viewBox="-500 -500 1000 1000"><circle class="outer" r="415" cx="0" cy="0"></circle><circle class="inner" r="190" cx="0" cy="0" pathLength="1" transform="rotate(-30)"></circle></svg></div>
 <div class="hero-row">
 <nav class="hero-nav"><a href="#about">About</a><a href="#works">Works</a><a href="#stack">Stack</a><a href="#contact">Contact</a></nav>
-<p class="hero-mid">Student &amp; Solo Developer<br>Open to collaborate</p>
+<p class="hero-mid">Student &amp; Solo Developer<br>Open to collaboration</p>
 <p class="hero-right"><span id="clock">--:--</span></p>
 </div>
 </section>
@@ -153,10 +153,10 @@ body.on-work .bulge{background:var(--wfg)}
 <section class="block" id="about">
 <p class="label">About</p>
 <div class="rows"><div class="row"><div class="about">
-<p class="lead rv" data-sy="1">Bridging low-level system architecture and <em>game programming</em> to build deeply optimized software.</p>
+<p class="lead rv" data-sy="1">I'm a student with a strong interest in exploring low-level systems, and also <em>game programming</em>.</p>
 <div class="cols">
-<p class="rv" data-sy="1" data-plain="1" style="--d:.1s">I am a dedicated student and solo developer specializing in Android Operating System (AOSP) development and game development. As the founder of AetheriaOS, a custom open-source Android ROM project, I have extensive hands-on experience in firmware customization, system package management, and device-tree modifications.</p>
-<p class="rv" data-sy="1" data-plain="1" style="--d:.2s">I am constantly exploring new technologies and am eager to collaborate on challenging open-source or software engineering projects, from cross-chipset firmware ports and interactive game loops to robust web back-end systems.</p>
+<p class="rv" data-sy="1" data-plain="1" style="--d:.1s">I'm a student and solo developer from Indonesia. It all began with porting custom ROMs, and slowly grew into maintaining and building my own. Along the way, my interest in game development led me to start making games on my own.</p>
+<p class="rv" data-sy="1" data-plain="1" style="--d:.2s">I often divide my time between working on AetheriaOS, PixelLines, and several experimental projects, as well as game development using Godot. I am constantly learning and always open to collaborating on open-source projects.</p>
 </div></div></div></div>
 </section>
 
@@ -217,32 +217,32 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(!FAVIC
 
 const WORKS=[
 {slug:'aetheriaos',title:'AetheriaOS',cat:'Android ROM',role:'Founder & Developer',bg:'#FF3D00',fg:'#c3f7c6',
- stack:'AOSP, Android 16, Based on LineageOS',
- desc:['A custom open-source Android ROM project, built and maintained as a solo developer.','The work covers firmware customization, system package management and device-tree modifications, aiming for deeply optimized, high-performance builds.'],
+ stack:'AOSP, Android 16, LineageOS',
+ desc:['A custom open-source Android ROM based on LineageOS, built and maintained solo.','The work covers firmware customization, system package management, and device-tree changes, with a focus on performance.'],
  href:'https://aetheriaos.github.io/',cta:'Visit Site',thumb:'Custom open-source Android ROM'},
 {slug:'pixellines',title:'PixelLines',cat:'Android ROM',role:'Developer',bg:'#0E0E0E',fg:'#F2F2F2',
  stack:'AOSP, Custom ROM, Privacy',
- desc:['A custom open-source Android ROM project with a focus on privacy.','Developed on AOSP architecture as part of ongoing work in Android system development.'],
- href:'https://github.com/PixelLines',cta:'View on GitHub',thumb:'Android ROM, focus on privacy'},
+ desc:['An open-source custom Android ROM focused on privacy.','Built on AOSP as part of my ongoing work in Android system development.'],
+ href:'https://github.com/PixelLines',cta:'View on GitHub',thumb:'Android ROM focused on privacy'},
 {slug:'blood-and-gunpowder',title:'Blood And Gunpowder',cat:'Game',role:'Solo Developer',bg:'#7A0F0F',fg:'#FFD9C7',
  stack:'Godot Engine, GDScript, Game Development',
- desc:['A real-time game demo prototype built in the Godot Engine.','Written in GDScript, it explores interactive game loops and responsive game mechanics.'],
+ desc:['A real-time game demo built with the Godot Engine.','Written in GDScript, it explores game loops and responsive game mechanics.'],
  href:'https://github.com/N1709/Sangue_e_Polvora-demo',cta:'View on GitHub',thumb:'Real-time game demo in Godot'},
 {slug:'ios-whyred',title:'ios-whyred',cat:'Kernel',role:'Developer',bg:'#E9FF3F',fg:'#11110F',
  stack:'XNU, Kernel, Whyred, SDM660, iOS 16',
- desc:['An XNU kernel for running the iOS 16 interface on the Whyred.','A low-level experiment in cross-chipset firmware porting.'],
+ desc:['An experiment porting the XNU kernel to run the iOS 16 interface on the Whyred.','A low-level learning project in cross-chipset porting.'],
  href:'https://github.com/N1709/ios-whyred2',cta:'View on GitHub',thumb:'XNU kernel, iOS 16 on Whyred | SDM660'}
 ];
 const STACKS=[
 {slug:'skills',title:'Skills',cat:'06 items',label:'Skills',role:'Capabilities',bg:'#A6FF00',fg:'#0b1200',
  stack:'Android System Development, Game Development, Cross-Chipset Firmware Port, IT Support, Computer Networking, Web Back-End Development',
- desc:['The areas I work in day to day.','From AOSP and firmware to games and web back-end.'],thumb:'Android, games, firmware, networking'},
+ desc:['The areas I work in.','From AOSP and firmware to games and web back-end.'],thumb:'Android, games, firmware, networking'},
 {slug:'tools',title:'Tools',cat:'08 items',label:'Tools',role:'Daily drivers',bg:'#0E6B4F',fg:'#DFFFE9',
  stack:'Godot Game Engine, XAMPP, Nginx, MySQL, VS Code, Blender, Mio-Kitchen, Git',
- desc:['The software I build and ship with.'],thumb:'Godot, Nginx, Blender, Git'},
+ desc:['The software I build with.'],thumb:'Godot, Nginx, Blender, Git'},
 {slug:'languages',title:'Languages',cat:'06 items',label:'Languages',role:'Code',bg:'#FFD400',fg:'#11110F',
  stack:'GDScript, Python, HTML, CSS, PHP, C',
- desc:['The languages I write most.'],thumb:'GDScript, Python, PHP, C'}
+ desc:['The languages I use most.'],thumb:'GDScript, Python, PHP, C'}
 ];
 const ALL=WORKS.concat(STACKS);
 
@@ -788,7 +788,7 @@ if(themeMeta)themeMeta.setAttribute('content',cw.bg);
 window.scrollTo(0,0);layoutWork()}
 else{
 document.body.classList.remove('on-work');root.classList.remove('on-work');
-document.title='N1709 — Android & Game Developer';
+document.title='N1709 — Low-Level Systems & Game Programming';
 paintTheme();
 farDrawn=false;lastRender=0;cv.style.visibility='';
 if(glUseful&&glReady)sizeCanvas();
